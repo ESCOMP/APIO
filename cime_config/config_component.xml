@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<entry_id version="3.0">
+  <!-- modifier_mode allowed values are
+       '*' 0 or more modifiers (default)
+       '1' exactly 1 modifier
+       '?' 0 or 1 modifiers
+       '+' 1 or more modifiers
+
+       This file may have atm desc entries.
+  -->
+  <description modifier_mode="?">
+    <desc aio="APIO"> Asyncronous interface to PIO library (APIO)</desc>
+  </description>
+
+  <entry id="COMP_AIO">
+    <type>char</type>
+    <valid_values>apio</valid_values>
+    <default_value>apio</default_value>
+    <group>case_comp</group>
+    <file>env_case.xml</file>
+    <desc>Name of async IO component</desc>
+  </entry>
+
+  <help>
+    =========================================
+    APIO naming conventions in compset name
+    =========================================
+  </help>
+
+</entry_id>
