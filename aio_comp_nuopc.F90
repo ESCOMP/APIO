@@ -1,12 +1,7 @@
-#ifdef CESMCOUPLED
-module rof_comp_nuopc
-#else
-module cdeps_drof_comp
-#endif
-
+module aio_comp_nuopc
 
   !----------------------------------------------------------------------------
-  ! This is the NUOPC cap for DROF
+  ! This is the NUOPC cap for APIO (asyncronous PIO interface)
   !----------------------------------------------------------------------------
 
   use ESMF             , only : ESMF_Mesh, ESMF_GridComp, ESMF_Time, ESMF_TimeInterval
@@ -80,7 +75,7 @@ module cdeps_drof_comp
   integer      , parameter     :: master_task=0                       ! task number of master task
   character(*) , parameter     :: rpfile = 'rpointer.rof'
 #ifdef CESMCOUPLED
-  character(*) , parameter     :: modName =  "(rof_comp_nuopc)"
+  character(*) , parameter     :: modName =  "(aio_comp_nuopc)"
 #else
   character(*) , parameter     :: modName =  "(cdeps_drof_comp)"
 #endif
@@ -122,14 +117,6 @@ contains
     ! switching to IPD versions
     call ESMF_GridCompSetEntryPoint(gcomp, ESMF_METHOD_INITIALIZE, &
          userRoutine=dshr_model_initphase, phase=0, rc=rc)
-    if (ChkErr(rc,__LINE__,u_FILE_u)) return
-    ! set entry point for methods that require specific implementation
-    call NUOPC_CompSetEntryPoint(gcomp, ESMF_METHOD_INITIALIZE, &
-         phaseLabelList=(/"IPDv01p1"/), userRoutine=InitializeAdvertise, rc=rc)
-    if (ChkErr(rc,__LINE__,u_FILE_u)) return
-
-    call NUOPC_CompSetEntryPoint(gcomp, ESMF_METHOD_INITIALIZE, &
-         phaseLabelList=(/"IPDv01p3"/), userRoutine=InitializeRealize, rc=rc)
     if (ChkErr(rc,__LINE__,u_FILE_u)) return
 
     ! attach specializing method(s)
